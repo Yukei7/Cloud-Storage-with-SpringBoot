@@ -8,9 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -49,6 +47,16 @@ public class NoteController {
         }
         redirectAttributes.addFlashAttribute("success", true);
 
+        return "redirect:/result";
+    }
+
+    @GetMapping("/delete-note/{id}")
+    public String deleteNote(@PathVariable Integer id,
+                             RedirectAttributes redirectAttributes,
+                             Model model) {
+        redirectAttributes.addFlashAttribute("activeTab", "notes");
+        Integer idDelete = noteService.deleteById(id);
+        redirectAttributes.addFlashAttribute("success", true);
         return "redirect:/result";
     }
 }
