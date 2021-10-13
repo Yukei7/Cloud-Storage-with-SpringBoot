@@ -1,12 +1,10 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
+import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
-import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
-import com.udacity.jwdnd.course1.cloudstorage.services.EncryptionService;
-import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
-import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
+import com.udacity.jwdnd.course1.cloudstorage.services.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -24,12 +22,14 @@ public class HomeController {
     private NoteService noteService;
     private CredentialService credentialService;
     private EncryptionService encryptionService;
+    private FileService fileService;
 
-    public HomeController(UserService userService, NoteService noteService, CredentialService credentialService, EncryptionService encryptionService) {
+    public HomeController(UserService userService, NoteService noteService, CredentialService credentialService, EncryptionService encryptionService, FileService fileService) {
         this.userService = userService;
         this.noteService = noteService;
         this.credentialService = credentialService;
         this.encryptionService = encryptionService;
+        this.fileService = fileService;
     }
 
     @GetMapping
@@ -41,6 +41,14 @@ public class HomeController {
             model.addAttribute("errorUpload", "ERROR User not found!");
             return "redirect:/logout";
         }
+
+        // files
+        List<File> files = fileService.getAllByUserId(user.getUserId());
+        if (files == null) {
+            model.addAttribute("errorFile", "Files not founded from this Username!");
+            return null;
+        }
+        model.addAttribute("files", files);
 
         // credentials
         List<Credential> credentials = credentialService.getAllByUserId(user.getUserId());

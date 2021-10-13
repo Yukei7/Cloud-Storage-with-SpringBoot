@@ -4,16 +4,18 @@ import java.util.Objects;
 
 public class File {
     private Integer fileId;
-    private String fileName;
-    private String contentType;
-    private Integer userId;
+    private String filename;
+    private String contenttype;
+    private String filesize;
+    private Integer userid;
     private byte[] filedata;
 
-    public File(Integer fileId, String fileName, String contentType, Integer userId, byte[] filedata) {
+    public File(Integer fileId, String filename, String contenttype, String filesize, Integer userid, byte[] filedata) {
         this.fileId = fileId;
-        this.fileName = fileName;
-        this.contentType = contentType;
-        this.userId = userId;
+        this.filename = filename;
+        this.contenttype = contenttype;
+        this.filesize = filesize;
+        this.userid = userid;
         this.filedata = filedata;
     }
 
@@ -25,28 +27,36 @@ public class File {
         this.fileId = fileId;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
-    public String getContentType() {
-        return contentType;
+    public String getContenttype() {
+        return contenttype;
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
+    public void setContenttype(String contenttype) {
+        this.contenttype = contenttype;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getFilesize() {
+        return filesize;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setFilesize(String filesize) {
+        this.filesize = filesize;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public byte[] getFiledata() {
@@ -66,11 +76,11 @@ public class File {
             return false;
         }
         File file = (File) o;
-        return this.fileName.equals(file.fileName);
+        return this.filename.equals(file.filename);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fileName);
+        return Objects.hash(filename);
     }
 }

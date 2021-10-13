@@ -10,9 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -54,6 +52,16 @@ public class CredentialController {
             credentialService.encryptPassword(reqCredential);
             credentialService.update(reqCredential);
         }
+        redirectAttributes.addFlashAttribute("success", true);
+        return "redirect:/result";
+    }
+
+    @GetMapping("/delete-credential/{id}")
+    public String deleteCredential(@PathVariable Integer id,
+                                   Model model,
+                                   RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("activeTab", "credentials");
+        Integer delId = credentialService.deleteById(id);
         redirectAttributes.addFlashAttribute("success", true);
         return "redirect:/result";
     }
