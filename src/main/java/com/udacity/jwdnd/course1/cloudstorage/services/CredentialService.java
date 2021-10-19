@@ -39,6 +39,10 @@ public class CredentialService {
         return credentialMapper.getAllByUserId(userId);
     }
 
+    public Credential getByURL(String url) {
+        return credentialMapper.getByURL(url);
+    }
+
     public Credential getById(Integer credentialId) {
         return credentialMapper.getById(credentialId);
     }

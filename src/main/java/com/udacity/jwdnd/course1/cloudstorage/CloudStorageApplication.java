@@ -24,9 +24,9 @@ public class CloudStorageApplication {
 
 	@Bean
 	public void createTestUser() {
-		String hashedPass = hashService.getHashedValue("a", "1");
+		String hashedPass = hashService.getHashedValue("testpw", "1");
 		Integer id = userMapper.insert(new User(null,
-				"a",
+				"testuser",
 				"1",
 				hashedPass,
 				"Test01",
